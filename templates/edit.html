@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Edit Contact</title>
+  </head>
+  <body style="font-family: system-ui; max-width: 900px; margin: 40px auto;">
+    <h1>Edit Contact</h1>
+
+    <form method="post" action="/edit/{{ row.id }}" style="max-width: 400px;">
+      <div style="margin-bottom: 12px;">
+        <label>Name</label><br/>
+        <input name="name" type="text" value="{{ row.name }}" required style="width:100%;"/>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label>Phone</label><br/>
+        <input name="phone" type="text" value="{{ row.phone }}" required style="width:100%;"/>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label>Email</label><br/>
+        <input name="email" type="email" value="{{ row.email }}" required style="width:100%;"/>
+      </div>
+
+      <button type="submit">Update</button>
+      <a href="/rds" style="margin-left: 12px;">Cancel</a>
+    </form>
+  </body>
+</html>

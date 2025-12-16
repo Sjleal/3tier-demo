@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head><meta charset="utf-8"><title>3-Tier Demo</title></head>
+  <body style="font-family: system-ui; max-width: 900px; margin: 40px auto;">
+    <h1>3-Tier Demo App</h1>
+
+    <h3>Instance Metadata</h3>
+    <ul>
+      <li><b>InstanceId:</b> {{ instance_id }}</li>
+      <li><b>Availability Zone:</b> {{ az }}</li>
+      <li><b>CPU Utilization:</b> {{ cpu }}%</li>
+    </ul>
+
+    <h3>Actions</h3>
+    <p><a href="/rds">RDS</a></p>
+
+    <form method="post" action="/load-test" style="display:flex; gap:8px; align-items:end;">
+      <div>
+        <label>Seconds</label><br/>
+        <input name="seconds" type="number" value="30" min="1" max="600"/>
+      </div>
+      <div>
+        <label>Threads</label><br/>
+        <input name="threads" type="number" value="2" min="1" max="16"/>
+      </div>
+      <button type="submit">Load Test (CPU)</button>
+    </form>
+  </body>
+</html>
