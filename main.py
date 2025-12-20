@@ -16,6 +16,7 @@ TABLE = os.environ.get("DB_TABLE", "contacts")
 
 
 def ensure_schema():
+  log.info(f"Ensuring schema on host={DB_HOST} db={DB_NAME} table={TABLE}")
   sql = f"""
   CREATE TABLE IF NOT EXISTS {TABLE} (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -117,5 +118,6 @@ def delete(row_id: int):
     with conn.cursor() as cur:
       cur.execute(f"DELETE FROM {TABLE} WHERE id=%s", (row_id,))
   return RedirectResponse(url="/rds", status_code=303)
+
 
 
