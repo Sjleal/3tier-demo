@@ -1,4 +1,4 @@
-import os
+import os, logging
 from fastapi import FastAPI, Form, Request
 from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -8,6 +8,7 @@ from db import get_conn
 from aws_meta import get_instance_info, cpu_percent
 from load_test import start_load_test
 
+log = logging.getlogger("demoapp")
 app = FastAPI(title="3-Tier Demo App")
 templates = Jinja2Templates(directory="templates")
 
@@ -30,8 +31,11 @@ def ensure_schema():
 
 @app.on_event("startup")
 def _startup():
-  ensure_schema()
-
+    if os.getenv("DB_INIT_ON_STARTUP", "false").lower() == "true":
+        try:
+            ensure_schema()
+        except Exception as e:
+            log.exception("DB init failed (continuing anyway): %s", e)
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
@@ -113,3 +117,4 @@ def delete(row_id: int):
     with conn.cursor() as cur:
       cur.execute(f"DELETE FROM {TABLE} WHERE id=%s", (row_id,))
   return RedirectResponse(url="/rds", status_code=303)
+
