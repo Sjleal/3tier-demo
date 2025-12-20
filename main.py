@@ -8,7 +8,7 @@ from db import get_conn
 from aws_meta import get_instance_info, cpu_percent
 from load_test import start_load_test
 
-log = logging.getlogger("demoapp")
+log = logging.getLogger("demoapp")
 app = FastAPI(title="3-Tier Demo App")
 templates = Jinja2Templates(directory="templates")
 
@@ -117,4 +117,5 @@ def delete(row_id: int):
     with conn.cursor() as cur:
       cur.execute(f"DELETE FROM {TABLE} WHERE id=%s", (row_id,))
   return RedirectResponse(url="/rds", status_code=303)
+
 
