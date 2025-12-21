@@ -11,8 +11,9 @@ def _burn_cpu(seconds: int):
 
 def start_load_test(seconds: int = 30, threads: int = 2) -> None:
   seconds = max(1, min(seconds, 600))
-  threads = max(1, min(threads, 16))
+  threads = max(1, min(threads, 128))
 
   for _ in range(threads):
     t = threading.Thread(target=_burn_cpu, args=(seconds,), daemon=True)
     t.start()
+
