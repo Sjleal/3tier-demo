@@ -4,7 +4,7 @@ from fastapi.responses import RedirectResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import PlainTextResponse
 
-from db import get_conn
+from db import get_conn, get_db_creds
 from aws_meta import get_instance_info, cpu_percent
 from load_test import start_load_test
 
@@ -123,6 +123,7 @@ def delete(row_id: int):
     with conn.cursor() as cur:
       cur.execute(f"DELETE FROM {TABLE} WHERE id=%s", (row_id,))
   return RedirectResponse(url="/rds", status_code=303)
+
 
 
 
