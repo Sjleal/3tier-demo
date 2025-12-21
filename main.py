@@ -37,11 +37,11 @@ def init_db():
 
 @app.on_event("startup")
 def _startup():
-    if os.getenv("DB_INIT_ON_STARTUP", "false").lower() == "true":
-        try:
-            ensure_schema()
-        except Exception as e:
-            log.exception("DB init failed (continuing anyway): %s", e)
+  if os.getenv("DB_INIT_ON_STARTUP", "false").lower() == "true":
+    try:
+      ensure_schema()
+    except Exception as e:
+      log.exception("DB init failed (continuing anyway): %s", e)
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
@@ -123,6 +123,7 @@ def delete(row_id: int):
     with conn.cursor() as cur:
       cur.execute(f"DELETE FROM {TABLE} WHERE id=%s", (row_id,))
   return RedirectResponse(url="/rds", status_code=303)
+
 
 
 
