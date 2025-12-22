@@ -62,12 +62,10 @@ def home(request: Request):
 def health():
   return "ok"
 
-
 @app.post("/load-test")
 def load_test(seconds: int = Form(30), threads: int = Form(2)):
-  start_load_test(seconds=seconds, threads=threads)
-  return RedirectResponse(url="/", status_code=303)
-
+    start_load_test(seconds=seconds, threads=threads)
+    return RedirectResponse(url="/", status_code=303)
 
 @app.get("/rds", response_class=HTMLResponse)
 def rds(request: Request):
@@ -123,6 +121,7 @@ def delete(row_id: int):
     with conn.cursor() as cur:
       cur.execute(f"DELETE FROM {TABLE} WHERE id=%s", (row_id,))
   return RedirectResponse(url="/rds", status_code=303)
+
 
 
 
