@@ -1,4 +1,3 @@
-5) load_test.py (stress CPU por X segundos)
 import threading
 import time
 
@@ -17,3 +16,4 @@ def start_load_test(seconds: int = 30, threads: int = 2) -> None:
     for _ in range(threads):
         t = threading.Thread(target=_burn_cpu, args=(seconds,), daemon=True)
         t.start()
+
